@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building India Impact Chapter, SRCC - Associates 2026-27</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            color: white;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 149, 0, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -15%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 149, 0, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .header-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header .tagline {
+            font-size: 1.2em;
+            color: #FF9500;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #ddd;
+            margin-top: 20px;
+            line-height: 1.7;
+        }
+
+        .divider {
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ff9500, transparent);
+            margin: 30px auto;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 28px;
+            margin-bottom: 80px;
+            animation: fadeInUp 0.7s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-button {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2.5px solid #ff9500;
+            border-radius: 18px;
+            padding: 35px 28px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 149, 0, 0.15), transparent);
+            transition: left 0.7s ease;
+            z-index: 0;
+        }
+
+        .card-button:hover::before {
+            left: 100%;
+        }
+
+        .card-button:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(255, 149, 0, 0.3);
+            border-color: #ffc107;
+            background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
+        }
+
+        .card-button .name {
+            font-size: 1.35em;
+            font-weight: 750;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-button .roll {
+            font-size: 0.95em;
+            color: #ff9500;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 50px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #ff9500;
+        }
+
+        .modal-header .modal-name {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .modal-header .modal-roll {
+            font-size: 0.95em;
+            color: #ff9500;
+            font-weight: 600;
+        }
+
+        .dept-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dept-badge.ci {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .dept-badge.mi {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .dept-badge.si {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .modal-message {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #333;
+            text-align: center;
+            font-style: italic;
+            color: #555;
+        }
+
+        .team-signature {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+            font-size: 0.9em;
+            color: #999;
+            font-weight: 500;
+        }
+
+        .team-signature .team-name {
+            color: #ff9500;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .modal-content {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-inner">
+                <div class="tagline">Welcome to Building India Impact Chapter</div>
+                <h1>Associates 2026-27</h1>
+                <div class="divider"></div>
+                <p>Click on any name to reveal your department</p>
+            </div>
+        </div>
+
+        <div class="grid" id="grid">
+            <!-- Cards will be generated here -->
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-name" id="modal-name"></div>
+                <div class="modal-roll" id="modal-roll"></div>
+            </div>
+            <div style="text-align: center;">
+                <div class="dept-badge" id="dept-badge"></div>
+            </div>
+            <div class="modal-message" id="modal-message"></div>
+            <div class="team-signature">
+                With warm wishes from <span class="team-name" id="team-name"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const associates = [
+            { name: "Alia Dahiya", roll: "26BC742", dept: "CI" },
+            { name: "Arnavi Mittal", roll: "26BC309", dept: "MI" },
+            { name: "Bharat Mudgal", roll: "26BA038", dept: "CI" },
+            { name: "Bhavya Verma", roll: "26BC034", dept: "SI" },
+            { name: "Manish Kumar Prajapati", roll: "26BC761", dept: "MI" },
+            { name: "Mansher Dhingra", roll: "26BC805", dept: "CI" },
+            { name: "Mohd Razi Ansari", roll: "26BC189", dept: "CI" },
+            { name: "Navneet Kumar", roll: "26BC803", dept: "SI" },
+            { name: "Piyush Yadav", roll: "26BC311", dept: "SI" },
+            { name: "Saksham Singh", roll: "26BC242", dept: "CI" },
+            { name: "Sanskar Singh", roll: "26BC349", dept: "CI" },
+            { name: "Shubham Prajapati", roll: "26BC605", dept: "MI" },
+            { name: "Sonal Krishna Shelke", roll: "26BC353", dept: "CI" },
+            { name: "Tanisha Dahuja", roll: "26BA079", dept: "CI" },
+            { name: "Tejasv Sehgal", roll: "26BC687", dept: "CI" },
+            { name: "Vardan Sarraf", roll: "26BC182", dept: "MI" },
+            { name: "Yuvashree B", roll: "26BA035", dept: "CI" },
+            { name: "Akshara Saini", roll: "26BA039", dept: "CI" },
+            { name: "Harishankar Dhawan", roll: "26BC244", dept: "MI" },
+            { name: "Daksh Goyal", roll: "26BC746", dept: "SI" },
+            { name: "Janvi Katre", roll: "26BC285", dept: "SI" }
+        ];
+
+        const deptMessages = {
+            CI: {
+                name: "College Initiatives",
+                team: "Vansh, Gati, Maahi, Tanvi",
+                message: "Welcome to College Initiatives! We're excited to have you join our team as we design and execute real-world community impact projects centered around preventive healthcare. Together, we'll identify local challenges, build practical solutions, and create measurable impact on campus and beyond. This is your opportunity to turn ideas into action."
+            },
+            MI: {
+                name: "Marketing Initiatives",
+                team: "Ridhima, Gazal",
+                message: "Welcome to Marketing Initiatives! We're thrilled to have you on board. You'll play a crucial role in amplifying our message, keeping campus informed, and building community around Building India's mission. From social media campaigns to event promotion, you'll be the voice that connects students to our initiatives. Let's make extraordinary impact together."
+            },
+            SI: {
+                name: "Standard Initiatives",
+                team: "Sataparna, Harshita",
+                message: "Welcome to Standard Initiatives! We're delighted to have you join our team. Your role is pivotal as we listen to student voices, measure campus realities, and turn insights into action. Through surveys, panel discussions, and ground-level research, you'll help shape better campus policies and drive meaningful change. Let's create real impact this year."
+            }
+        };
+
+        function renderGrid() {
+            const grid = document.getElementById("grid");
+            grid.innerHTML = "";
+            
+            associates.forEach((assoc, index) => {
+                const card = document.createElement("div");
+                card.className = "card-button";
+                card.innerHTML = `
+                    <div class="name">${assoc.name}</div>
+                    <div class="roll">${assoc.roll}</div>
+                `;
+                card.onclick = () => openModal(index);
+                grid.appendChild(card);
+            });
+        }
+
+        function openModal(index) {
+            const assoc = associates[index];
+            const dept = deptMessages[assoc.dept];
+            
+            document.getElementById("modal-name").textContent = assoc.name;
+            document.getElementById("modal-roll").textContent = assoc.roll;
+            
+            const deptBadge = document.getElementById("dept-badge");
+            deptBadge.textContent = dept.name;
+            deptBadge.className = `dept-badge ${assoc.dept.toLowerCase()}`;
+            
+            document.getElementById("modal-message").textContent = dept.message;
+            document.getElementById("team-name").textContent = dept.team;
+            
+            document.getElementById("modal").classList.add("show");
+        }
+
+        function closeModal() {
+            document.getElementById("modal").classList.remove("show");
+        }
+
+        document.getElementById("modal").addEventListener("click", function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+
+        renderGrid();
+    </script>
+</body>
+</html>
